@@ -55,7 +55,7 @@ pipeline {
         stage('LCTR') {
           steps {
             catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE')
-			    script{
+			    script
 			    {
                   if ("${params.Environment}".toLowerCase().contains('test') || "${params.Environment}".toLowerCase().contains('stage'))
                         {
@@ -63,7 +63,7 @@ pipeline {
                         }
 
                }
-           }
+
         }
 
         stage('micro_core') {
@@ -77,6 +77,7 @@ pipeline {
 
       }
     }
+	}
 	stage('Download 1') {
       parallel {
         stage('subindustry_default') {
