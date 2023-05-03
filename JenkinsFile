@@ -58,7 +58,10 @@ pipeline {
 			    {
                    script
                     {
-                        echo "${params.Environment}"
+                        if ("${params.Environment}".contains('Test') || "${params.Environment}".contains('Stage'))
+                        {
+                            echo 'LCTR'
+                        }
                      }
 
                 }
