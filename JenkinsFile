@@ -3,7 +3,7 @@ pipeline {
   agent any
   parameters
   {
-       string defaultValue: 'Test1', name: 'Environment'
+       string defaultValue: 'stage', name: 'Environment'
    }
   stages {
     stage('Full Flow 1') {
@@ -56,11 +56,15 @@ pipeline {
           steps {
             catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE')
 			    {
-                  if ("${param.Environment}".contains('Test') ||"${param.Environment}".contains('Stage'))
+                   script
+                    {
+                        if ("${param.Environment}".contains('Test') || "${param.Environment}".contains('Stage'))
                         {
                             echo 'LCTR'
                         }
-                  }
+                     }
+
+                }
                }
         }
 
