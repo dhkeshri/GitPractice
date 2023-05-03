@@ -50,22 +50,21 @@ pipeline {
       parallel {
         stage('LCTR') {
           steps {
-            catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE')
-			    {
-			        script
-			        {
-			            echo "${params.Environment}"
-			            if ("${params.Environment}".toLowerCase().contains('test') || "${params.Environment}".toLowerCase().contains('stage'))
+		  if ("${params.Environment}".toLowerCase().contains('test') || "${params.Environment}".toLowerCase().contains('stage'))
                         {
-                            echo 'LCTR'
+                            catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE')
+							{
+								echo "this was executed"
+							}
                         }
                         else
                         {
-                            echo "This stage is escaped"
+                            catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE')
+							{
+								echo "This stage was escapsed"
+							}
                         }
-			         }
 
-			        }
                }
         }
 
