@@ -55,14 +55,15 @@ pipeline {
         stage('LCTR') {
           steps {
             catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE')
+			    script{
 			    {
-                   script
-                    {
-                       echo "${params.Environment}".toLowerCase()
-                     }
-
+                  if ("${params.Environment}".toLowerCase().contains('test') || "${params.Environment}".toLowerCase().contains('stage'))
+                        {
+                            echo 'LCTR'
+                        }
                 }
                }
+           }
         }
 
         stage('micro_core') {
