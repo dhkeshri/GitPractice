@@ -7,7 +7,7 @@ pipeline {
         stage('Core') {
           steps {
             catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE')
-				{
+                {
                     bat 'behave -D url=%Environment% -f allure_behave.formatter:AllureFormatter -o allure-results .\\BDD\\features\\core_full_flow.feature -f pretty --no-capture'
                 }
           }
@@ -16,7 +16,7 @@ pipeline {
         stage('comprehensive') {
           steps {
             catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE')
-			    {
+                {
                     bat 'behave -D url=%Environment% -f allure_behave.formatter:AllureFormatter -o allure-results .\\BDD\\features\\comprehensive_full_flow.feature -f pretty --no-capture'
                 }
           }
@@ -29,7 +29,7 @@ pipeline {
         stage('micro_comprehensive') {
           steps {
             catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE')
-			    {
+                {
                     bat 'behave -D url=%Environment% -f allure_behave.formatter:AllureFormatter -o allure-results .\\BDD\\features\\micro_comprehensive_full_flow.feature -f pretty --no-capture'
                 }
           }
@@ -38,7 +38,7 @@ pipeline {
         stage('corporate_governance') {
           steps {
             catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE')
-			    {
+                {
                     bat 'behave -D url=%Environment% -f allure_behave.formatter:AllureFormatter -o allure-results .\\BDD\\features\\corporate_governance_full_flow.feature -f pretty --no-capture'
                 }
           }
@@ -50,28 +50,29 @@ pipeline {
       parallel {
         stage('LCTR') {
           steps {
-		  if ("${params.Environment}".toLowerCase().contains('test') || "${params.Environment}".toLowerCase().contains('stage'))
+            catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE')
+                {
+                    script
+                    {
+                        echo "${params.Environment}"
+                        if ("${params.Environment}".toLowerCase().contains('test') || "${params.Environment}".toLowerCase().contains('stage'))
                         {
-                            catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE')
-							{
-								echo "this was executed"
-							}
+                            echo 'LCTR'
                         }
                         else
                         {
-                            catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE')
-							{
-								echo "This stage was escapsed"
-							}
+                            echo "This stage is escaped "
                         }
+                     }
 
+                    }
                }
         }
 
         stage('micro_core') {
           steps {
             catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE')
-			    {
+                {
                     bat 'behave -D url=%Environment% -f allure_behave.formatter:AllureFormatter -o allure-results .\\BDD\\features\\micro_core_full_flow.feature -f pretty --no-capture'
                 }
           }
@@ -79,36 +80,36 @@ pipeline {
 
       }
     }
-	stage('Download 1') {
+    stage('Download 1') {
       parallel {
         stage('subindustry_default') {
           steps {
             catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE')
-			    {
+                {
                     bat 'behave -D url=%Environment% -f allure_behave.formatter:AllureFormatter -o allure-results .\\BDD\\features\\subindustry_default.feature -f pretty --no-capture'
                 }
                }
         }
-		stage('company_product_univers') {
+        stage('company_product_univers') {
           steps {
             catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE')
-			    {
+                {
                     bat 'behave -D url=%Environment% -f allure_behave.formatter:AllureFormatter -o allure-results .\\BDD\\features\\company_product_univers.feature -f pretty --no-capture'
                 }
           }
         }
-		stage('activation_matrix') {
+        stage('activation_matrix') {
           steps {
             catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE')
-			    {
+                {
                     bat 'behave -D url=%Environment% -f allure_behave.formatter:AllureFormatter -o allure-results .\\BDD\\features\\activation_matrix.feature -f pretty --no-capture'
                 }
           }
         }
-		stage('company_type') {
+        stage('company_type') {
           steps {
             catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE')
-			    {
+                {
                     bat 'behave -D url=%Environment% -f allure_behave.formatter:AllureFormatter -o allure-results .\\BDD\\features\\company_type.feature -f pretty --no-capture'
                 }
           }
@@ -116,36 +117,36 @@ pipeline {
 
       }
     }
-	stage('Download 2') {
+    stage('Download 2') {
       parallel {
         stage('cutoff_values') {
           steps {
             catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE')
-			    {
+                {
                     bat 'behave -D url=%Environment% -f allure_behave.formatter:AllureFormatter -o allure-results .\\BDD\\features\\cutoff_values.feature -f pretty --no-capture'
                 }
                }
         }
-		stage('extra_indicator') {
+        stage('extra_indicator') {
           steps {
             catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE')
-			    {
+                {
                     bat 'behave -D url=%Environment% -f allure_behave.formatter:AllureFormatter -o allure-results .\\BDD\\features\\extra_indicator.feature -f pretty --no-capture'
                 }
           }
         }
-		stage('hidden_to_client') {
+        stage('hidden_to_client') {
           steps {
             catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE')
-			    {
+                {
                     bat 'behave -D url=%Environment% -f allure_behave.formatter:AllureFormatter -o allure-results .\\BDD\\features\\hidden_to_client.feature -f pretty --no-capture'
                 }
           }
         }
-		stage('Projections') {
+        stage('Projections') {
           steps {
             catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE')
-			    {
+                {
                     bat 'behave -D url=%Environment% -f allure_behave.formatter:AllureFormatter -o allure-results .\\BDD\\features\\Projections.feature -f pretty --no-capture'
                 }
           }
@@ -153,25 +154,25 @@ pipeline {
 
       }
     }
-	stage('Download 3') {
+    stage('Download 3') {
       parallel {
         stage('qualitative_overlay') {
           steps {
             catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE')
-			    {
+                {
                     bat 'behave -D url=%Environment% -f allure_behave.formatter:AllureFormatter -o allure-results .\\BDD\\features\\qualitative_overlay.feature -f pretty --no-capture'
                 }
                }
         }
-		stage('weight_matrix_tests') {
+        stage('weight_matrix_tests') {
           steps {
             catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE')
-			    {
+                {
                     bat 'behave -D url=%Environment% -f allure_behave.formatter:AllureFormatter -o allure-results .\\BDD\\features\\weight_matrix_tests.feature -f pretty --no-capture'
                 }
           }
         }
-	  }
+      }
     }
 
    }
